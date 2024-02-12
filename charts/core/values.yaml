@@ -558,7 +558,7 @@ bottlerocket:
   runtimePath: /run/dockershim.sock
 
 containerd:
-  enabled: false
+  enabled: true
   path: /var/run/containerd/containerd.sock
 
 crio:
