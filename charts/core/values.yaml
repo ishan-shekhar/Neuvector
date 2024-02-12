@@ -283,17 +283,6 @@ controller:
           Password:
           Role: admin
 
-neuvector-service-webui:                  # Start of the neuvector-service-webui section
-  type: ClusterIP                         # Change this line
-  clusterIP: None                         # Add this line
-  ports:
-    - name: https
-      port: 8443
-      targetPort: 8443
-      protocol: TCP
-  selector:
-    app: neuvector-service-webui          # Keep this line
-
 enforcer:
   # If false, enforcer will not be installed
   enabled: true
@@ -440,7 +429,7 @@ cve:
       protocol: https
       secretName:
     svc:
-      type: NodePort # should be set to - ClusterIP
+      type: ClusterIP
       loadBalancerIP:
       annotations:
         {}
@@ -579,43 +568,6 @@ crio:
 admissionwebhook:
   type: ClusterIP
 
-crd:
-  # If false, the crd will not be installed
-  enabled: false
-
-installCRDs: true
-
-tls:
-  caBundle: ""
-
-# Add log level
-logLevel: info
-
-# Configure the health probes for neuvector-service-webui
-probe:
-  liveness:
-    initialDelaySeconds: 60
-    periodSeconds: 15
-    timeoutSeconds: 10
-    successThreshold: 1
-    failureThreshold: 3
-  readiness:
-    initialDelaySeconds: 60
-    periodSeconds: 15
-    timeoutSeconds: 10
-    successThreshold: 1
-    failureThreshold: 3
-
-metrics:
-  enabled: false
-  # For Grafana 5.x, use "Bearer"
-  type: Bearer
-  # Either "Enabled" or "Disabled"
-  auth:
-    basic: Enabled
-  service:
-    name: prometheus
-    port: 9090
-
-# Country Code for NeuVector Database
-countryCode: "US"
+crdwebhook:
+  enabled: true
+  type: ClusterIP
